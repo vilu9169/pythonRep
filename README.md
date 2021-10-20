@@ -1,2 +1,2 @@
 # pyhtonRep
-Pong Repositor
+Pong Repository
