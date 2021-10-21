@@ -1,7 +1,6 @@
 import pygame
 from paddle import Paddle
 from ball import Ball
-import threading
 pygame.init()
 
 screen_width = 700
@@ -10,6 +9,11 @@ pygame.display.set_caption("Pong")
 #   Colors:
 black = (0, 0, 0)
 white = (255, 255, 255)
+green = (0, 255, 0)
+blue = (0, 0, 255)
+red = (255, 00, 00)
+
+
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 #   Paddles
@@ -33,35 +37,13 @@ all_sprites_list.add(ball)
 ball.accelerate(1)
 
 clock = pygame.time.Clock()
-
-
 scoreA = 0
 scoreB = 0
 
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_x:
-                running = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            while True:
-                font = pygame.font.Font(None, 170)
-                text = font.render("PAUSED", True, white)
-                screen.blit(text, (125, 194))
-                font = pygame.font.Font(None, 30)
-                text = font.render("PRESS SPACE TO UNPAUSE", True, white)
-                screen.blit(text, (210, 294))
-                pygame.display.flip()
-                event = pygame.event.wait()
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    break
-                elif event.type == pygame.QUIT:
-                    running = False
-                    break
 
+def Game():
+    global scoreA
+    global scoreB
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
         paddleA.moveUp(5)
@@ -107,7 +89,32 @@ while running:
     screen.blit(text, (420, 10))
 
     pygame.display.flip()
-
     clock.tick(60)
 
+
+running = True
+while running:
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_x:
+                running = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            while True:
+                font = pygame.font.Font(None, 170)
+                text = font.render("PAUSED", True, white)
+                screen.blit(text, (125, 194))
+                font = pygame.font.Font(None, 30)
+                text = font.render("PRESS SPACE TO UNPAUSE", True, white)
+                screen.blit(text, (210, 294))
+                pygame.display.flip()
+                event = pygame.event.wait()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    break
+                elif event.type == pygame.QUIT:
+                    running = False
+                    break
+    Game()
 pygame.quit()
