@@ -50,11 +50,6 @@ n = 0
 x = 0
 
 while running:
-    if background == white:
-        color_list[0] = black
-    else:
-        color_list[0] = white
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -98,8 +93,20 @@ while running:
                 x = 0
             if x == 0:
                 background = black
+                color_list[0] = white
+                current_color = color_list[0]
+                ball.changeColor(current_color)
+                paddleA.changeColor(current_color)
+                paddleB.changeColor(current_color)
+
             if x == 1:
                 background = white
+                color_list[0] = black
+                current_color = color_list[0]
+                ball.changeColor(current_color)
+                paddleA.changeColor(current_color)
+                paddleB.changeColor(current_color)
+
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
             if scoreA >= 11 or scoreB >= 11:
