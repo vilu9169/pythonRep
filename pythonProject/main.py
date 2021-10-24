@@ -124,13 +124,11 @@ while running:
                 paddleA.rect.y = 200
                 paddleB.rect.y = 200
 
-
         if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
             if screen.get_flags() & pygame.FULLSCREEN:
                 pygame.display.set_mode((screen_width, screen_height))
             else:
                 pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
-
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
@@ -147,14 +145,14 @@ while running:
     if ball.rect.x >= 690:
         if scoreA < 11:
             scoreA += 1
-            ball.resetPos(current_color)
+            ball.resetPos()
             ball.velocity = [0, 0]
             ball.delay(1, ball.accelerate, 1)
 
     if ball.rect.x <= 0:
         if scoreB < 11:
             scoreB += 1
-            ball.resetPos(current_color)
+            ball.resetPos()
             ball.velocity = [0, 0]
             ball.delay(1, ball.accelerate, -1)
 
@@ -162,7 +160,7 @@ while running:
         ball.velocity[1] = -ball.velocity[1]
     if ball.rect.y < 0:
         ball.velocity[1] = -ball.velocity[1]
-
+#        Collision detection between sprites
     if pygame.sprite.collide_mask(ball, paddleA) or pygame.sprite.collide_mask(ball, paddleB):
         ball.bounce()
 
@@ -196,6 +194,8 @@ while running:
         text = font.render("Press r to restart", True, current_color)
         screen.blit(text, (135, 284))
 
+#   Update the full display Surface to the screen
     pygame.display.flip()
+#   update the clock, fps is 60
     clock.tick(60)
 pygame.quit()

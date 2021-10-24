@@ -11,9 +11,10 @@ color_list = (white, green, blue, red)
 
 class Ball(pygame.sprite.Sprite):
 
+#   __init__ låter dig initialisera classens attribut, i detta fall self, width och height
     def __init__(self, width, height):
-        super().__init__()
 
+        super().__init__()
         self.image = pygame.Surface([width, height])
         self.image.fill(black)
         self.image.set_colorkey(black)
@@ -38,12 +39,11 @@ class Ball(pygame.sprite.Sprite):
         t = threading.Timer(n, func, args=(arg,))
         t.start()
 
-
     def bounce(self):
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8, 8)
 
-    def resetPos(self, color):
+    def resetPos(self):
         self.rect.x = 345
         self.rect.y = 195
         self.velocity[0] = self.velocity[0]
