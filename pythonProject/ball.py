@@ -38,6 +38,7 @@ class Ball(pygame.sprite.Sprite):
         t = threading.Timer(n, func, args=(arg,))
         t.start()
 
+
     def bounce(self):
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8, 8)

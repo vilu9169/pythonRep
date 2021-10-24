@@ -20,6 +20,7 @@ color_list = [white, green, blue, red]
 current_color = white
 
 screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.mouse.set_visible(False)
 
 #   Paddles
 paddleA = Paddle(current_color, 10, 100)
@@ -50,6 +51,12 @@ n = 0
 x = 0
 
 while running:
+
+    if background == white:
+        color_list[0] = black
+    else:
+        color_list[0] = white
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -98,7 +105,6 @@ while running:
                 ball.changeColor(current_color)
                 paddleA.changeColor(current_color)
                 paddleB.changeColor(current_color)
-
             if x == 1:
                 background = white
                 color_list[0] = black
@@ -106,7 +112,6 @@ while running:
                 ball.changeColor(current_color)
                 paddleA.changeColor(current_color)
                 paddleB.changeColor(current_color)
-
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
             if scoreA >= 11 or scoreB >= 11:
@@ -118,6 +123,14 @@ while running:
                 ball.delay(1, ball.accelerate, 1)
                 paddleA.rect.y = 200
                 paddleB.rect.y = 200
+
+
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+            if screen.get_flags() & pygame.FULLSCREEN:
+                pygame.display.set_mode((screen_width, screen_height))
+            else:
+                pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
@@ -168,7 +181,7 @@ while running:
     if scoreA >= 11:
         ball.velocity = [0, 0]
         font = pygame.font.Font(None, 110)
-        text = font.render("PlayerA Won!", True, current_color)
+        text = font.render("Player 1 Won!", True, current_color)
         screen.blit(text, (110, 194))
         font = pygame.font.Font(None, 80)
         text = font.render("Press r to restart", True, current_color)
@@ -177,7 +190,7 @@ while running:
     if scoreB >= 11:
         ball.velocity = [0, 0]
         font = pygame.font.Font(None, 110)
-        text = font.render("PlayerB Won!", True, current_color)
+        text = font.render("Player 2 Won!", True, current_color)
         screen.blit(text, (110, 194))
         font = pygame.font.Font(None, 80)
         text = font.render("Press r to restart", True, current_color)
